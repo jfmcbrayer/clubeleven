@@ -1,19 +1,16 @@
 from django.db import models
 
-### Core classes:
-###     Link and Object are supposed to be disjoint, but they are used
-###     interchangeably all over the place, and so there's no other way to get
-###     the desired characteristics at the table level.
+## Core classes:
+##     Link and Object are supposed to be disjoint, but they are used
+##     interchangeably all over the place, and so there's no other way to get
+##     the desired characteristics at the table level.
 
 class Common(models.Model):
     name = models.CharField(max_length=80, null=True)
     media_type = models.CharField(max_length=80, null=True)
 
-    object_type = models.CharField(max_length=2048, default="",
-                                   null=False, blank=True)
-    at_context = models.CharField(max_length=2048,
-                                  default="https://w3c.org/ns/activitystreams",
-                                  null=False)
+    object_type = ""
+    at_context = "https://w3c.org/ns/activitystreams"
 
 class Link(Common):
     href = models.URLField()
