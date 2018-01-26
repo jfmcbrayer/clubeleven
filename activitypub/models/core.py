@@ -64,3 +64,14 @@ class PubObject(Common):
 
     object_type = "Object"
 
+## Collections:
+##     We don't implement all of the collection classes, nor do we implement
+##     every specified field on the ones we do implement. Why? All the
+##     paging-related items are transient, and they don't need to be
+##     represented in a persistent model. A higher level library should wrap
+##     these classes to provide paging (and generation of paging-related JSON
+##     objects for C2S APIs.)
+
+class Collection(PubObject):
+    items = models.ManyToManyField(Common, related_name="collections")
+
