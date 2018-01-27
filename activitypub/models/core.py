@@ -72,7 +72,24 @@ class PubObject(Common):
 class Collection(PubObject):
     items = models.ManyToManyField(Common, related_name="in_collections")
 
+    object_type = "Collection"
+
 class OrderedCollection(Collection):
     class Meta:
         ordering = ["-published"]
+    object_type = "OrderedCollection"
+
+class Actor(PubObject):
+    inbox = models.ForeignKey(OrderedCollection, models.PROTECT, related_name="inbox_owner")
+    outbox = models.ForeignKey(OrderedCollection, models.PROTECT, related_name="outbox_owner")
+    following = models.ForeignKey(Collection, models.PROTECT, related_name="following_owner")
+    followers = models.ForeignKey(Collection, models.PROTECT, related_name="followers_owner")
+    liked = models.ForeignKey(Collection, models.PROTECT, related_name="liked_owner")
+
+    object_type = "Actor"
+
+
+
+
+
 
