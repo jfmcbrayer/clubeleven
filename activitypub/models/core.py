@@ -70,5 +70,9 @@ class PubObject(Common):
 ##     objects for C2S APIs.)
 
 class Collection(PubObject):
-    items = models.ManyToManyField(Common, related_name="collections")
+    items = models.ManyToManyField(Common, related_name="in_collections")
+
+class OrderedCollection(Collection):
+    class Meta:
+        ordering = ["-published"]
 
