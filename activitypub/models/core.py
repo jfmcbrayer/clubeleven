@@ -88,6 +88,29 @@ class Actor(PubObject):
 
     object_type = "Actor"
 
+class BaseActivity(PubObject):
+    subject = models.ForeignKey(Actor, models.CASCADE) # AP's 'actor' field, but Django
+                                                       # does not like it.
+    target = models.ForeignKey(PubObject, models.SET_NULL, null=True,
+                               related_name="target_of")
+    result = models.ForeignKey(PubObject, models.SET_NULL, null=True,
+                               related_name="result_of")
+    origin = models.ForeignKey(PubObject, models.SET_NULL, null=True,
+                               related_name="origin_of")
+    instrument = models.ForeignKey(PubObject, models.SET_NULL, null=True,
+                                   related_name="instrument_of")
+
+    object_type = "BaseActivity"
+
+class Activity(BaseActivity):
+    direct_object = models.ForeignKey(PubObject, models.SET_NULL, null=True,
+                                      related_name="direct_object_of")
+
+    object_type = "Activity"
+
+class IntransitiveActivity(BaseActivity):
+    object_type = "IntransitiveActivity"
+
 
 
 
