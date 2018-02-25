@@ -19,7 +19,8 @@ class User(models.Model):
 
 class Persona(BaseActor):
     user = models.ForeignKey(User, models.SET_NULL, null=True)
-    default_visibility = models.CharField(choices=(("PUB", "Public"),
+    default_visibility = models.CharField(max_length=8,
+                                          choices=(("PUB", "Public"),
                                                    ("FL", "Followers only"),
                                                    ("MUT", "Friends only"),
                                                    ("LIST", "Listed people only"),))
