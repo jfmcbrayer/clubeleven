@@ -17,6 +17,7 @@ class BaseActor(models.Model):
     inbox_url = models.URLField(max_length=2048)
     outbox_url = models.URLField(max_length=2048)
     local_user = models.ForeignKey('BaseActor', models.SET_NULL, null=True)
+    json = fields.JSONField(encoder = DjangoJSONEncoder, null=True)
 
 class User(models.Model):
     email = models.EmailField(null=True)
@@ -59,4 +60,4 @@ class Reaction(Comment):
     # the perfectly reasonable emojo "black woman kissing black woman" takes like
     # 9 codepoints.
     emojo = models.CharField(max_length=16, null=True)
-
+    shortcode = models.CharField(max_length=16, null=True)
