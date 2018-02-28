@@ -8,3 +8,6 @@ from .core import Link
 from .core import Post
 from .core import Comment
 from .core import Reaction
+
+from .events import Event
+from .events import Invite
