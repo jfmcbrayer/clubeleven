@@ -46,6 +46,9 @@ class Post(BasePost):
     content = models.TextField()
     source = models.TextField()
 
+class MediaPost(Post):
+    media = models.FileField()
+
 class Comment(Post):
     conversation = models.ForeignKey(Post, models.CASCADE, related_name="comments")
     parent = models.ForeignKey(Post, models.CASCADE, related_name="children")
