@@ -37,8 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'clubeleven',
     'clubeleven_models',
 ]
+
+#AUTH_USER_MODEL = 'clubeleven.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

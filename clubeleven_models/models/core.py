@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 from django.contrib.postgres import fields
 from django.core.serializers.json import DjangoJSONEncoder
 
@@ -16,13 +17,8 @@ class BaseActor(models.Model):
     profile_url = models.URLField(max_length=2048)
     inbox_url = models.URLField(max_length=2048)
     outbox_url = models.URLField(max_length=2048)
-    local_user = models.ForeignKey('self', models.SET_NULL, null=True)
+    local_user = models.ForeignKey(settings.AUTH_USER_MODEL, models.CASCADE, null=True)
     json = fields.JSONField(encoder = DjangoJSONEncoder, null=True)
-
-class User(models.Model):
-    email = models.EmailField(null=True)
-    # password?
-    # fields needed for alternate auth methods?
 
 
 class Persona(BaseActor):
