@@ -4,7 +4,10 @@ from django.db import models
 class Event(BaseActor):
     owner = models.ForeignKey('Persona', models.CASCADE, null=False,
                               related_name="owner")
-    # Add all the scheduling and location fields here.
+    start = models.DateTimeField();
+    end = models.DateTimeField(null=True);
+    description = models.TextField(null=True, blank=True)
+
 
 class Invite(models.Model):
     event = models.ForeignKey('Event', models.CASCADE, null=False,
