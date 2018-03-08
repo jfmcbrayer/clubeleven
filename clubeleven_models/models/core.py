@@ -16,7 +16,7 @@ class BaseActor(models.Model):
     profile_url = models.URLField(max_length=2048)
     inbox_url = models.URLField(max_length=2048)
     outbox_url = models.URLField(max_length=2048)
-    local_user = models.ForeignKey('BaseActor', models.SET_NULL, null=True)
+    local_user = models.ForeignKey('self', models.SET_NULL, null=True)
     json = fields.JSONField(encoder = DjangoJSONEncoder, null=True)
 
 class User(models.Model):
@@ -26,7 +26,6 @@ class User(models.Model):
 
 
 class Persona(BaseActor):
-    user = models.ForeignKey(User, models.SET_NULL, null=True)
     default_visibility = models.CharField(max_length=8,
                                           choices=(("PUB", "Public"),
                                                    ("FL", "Followers only"),
