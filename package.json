@@ -1,0 +1,28 @@
+{
+  "name": "clubeleven",
+  "version": "1.0.0",
+  "description": "clubeleven is a prototyping workspace for Aardwolf (https://aardwolf.social) written in Python. It is not intended to be used in production, and will *probably** never provide a usable ActivityPub server. It does include experiments and proofs of concept that will be re-implemented in Rust for Aardwolf.",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "dependencies": {
+    "bulma": "^0.6.2",
+    "intercooler": "^1.2.1",
+    "zepto": "^1.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jfmcbrayer/clubeleven.git"
+  },
+  "author": "Jason McBrayer <jmcbray@carcosa.net>",
+  "license": "AGPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/jfmcbrayer/clubeleven/issues"
+  },
+  "homepage": "https://github.com/jfmcbrayer/clubeleven#readme"
+}
