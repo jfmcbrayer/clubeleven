@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'clubeleven_models',
 ]
 
-#AUTH_USER_MODEL = 'clubeleven.User'
+AUTH_USER_MODEL = 'clubeleven.CustomUser'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
