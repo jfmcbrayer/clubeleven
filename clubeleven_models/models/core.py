@@ -10,7 +10,9 @@ class BasePost(models.Model):
     icon = models.ImageField(null=True)
     image = models.ImageField(null=True)
     json = fields.JSONField(encoder = DjangoJSONEncoder,
-                            null=True)
+                            null=True, blank=True)
+    def __str__():
+        return name
 
 class BaseActor(models.Model):
     display_name = models.CharField(max_length=80)
@@ -18,8 +20,10 @@ class BaseActor(models.Model):
     inbox_url = models.URLField(max_length=2048)
     outbox_url = models.URLField(max_length=2048)
     local_user = models.ForeignKey(settings.AUTH_USER_MODEL, models.CASCADE, null=True)
-    json = fields.JSONField(encoder = DjangoJSONEncoder, null=True)
+    json = fields.JSONField(encoder = DjangoJSONEncoder, null=True, blank=True)
 
+    def __str__():
+        return display_name
 
 class Persona(BaseActor):
     default_visibility = models.CharField(max_length=8,
@@ -29,6 +33,7 @@ class Persona(BaseActor):
                                                    ("LIST", "Listed people only"),))
     is_searchable = models.BooleanField(default=True)
     avatar = models.ImageField(null=True)
+    shortname = models.SlugField()
 
 class Link(BasePost):
     href = models.URLField(max_length=2048)

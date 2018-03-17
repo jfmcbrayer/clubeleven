@@ -20,3 +20,5 @@ class Invite(models.Model):
                                                 ("T", "Tentative")))
     response = models.ForeignKey('BasePost', models.SET_NULL, null=True,
                                  related_name="response")
+    def __str__():
+        return response_type
