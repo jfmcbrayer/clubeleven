@@ -7,8 +7,8 @@ class BasePost(models.Model):
     name = models.CharField(max_length=140, null=True)
     media_type = models.CharField(max_length=80, null=True)
     posted_by = models.ForeignKey('BaseActor', models.CASCADE, null=True)
-    icon = models.ImageField(null=True)
-    image = models.ImageField(null=True)
+    icon = models.ImageField(null=True, upload_to='uploads/%Y/%m/%d/')
+    image = models.ImageField(null=True, upload_to='uploads/%Y/%m/%d/')
     json = fields.JSONField(encoder = DjangoJSONEncoder,
                             null=True, blank=True)
     def __str__():
@@ -32,7 +32,7 @@ class Persona(BaseActor):
                                                    ("MUT", "Friends only"),
                                                    ("LIST", "Listed people only"),))
     is_searchable = models.BooleanField(default=True)
-    avatar = models.ImageField(null=True)
+    avatar = models.ImageField(null=True, upload_to='uploads/%Y/%m/%d/')
     shortname = models.SlugField()
 
 class Link(BasePost):
