@@ -21,6 +21,8 @@ class BaseActor(models.Model):
     outbox_url = models.URLField(max_length=2048)
     local_user = models.ForeignKey(settings.AUTH_USER_MODEL, models.CASCADE, null=True)
     json = fields.JSONField(encoder = DjangoJSONEncoder, null=True, blank=True)
+    followers = models.ManyToManyField('self', related_name='followers')
+    follows = models.ManyToManyField('self',  related_name='follows')
 
     def __str__():
         return display_name
