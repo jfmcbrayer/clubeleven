@@ -6,6 +6,10 @@ bulma@^0.6.2:
   version "0.6.2"
   resolved "https://registry.yarnpkg.com/bulma/-/bulma-0.6.2.tgz#f4b1d11d5acc51a79644eb0a2b0b10649d3d71f5"
 
+fork-awesome@^1.0.11:
+  version "1.0.11"
+  resolved "https://registry.yarnpkg.com/fork-awesome/-/fork-awesome-1.0.11.tgz#f120c94be7e0c77c549013c989ffc5ef02c0bef8"
+
 intercooler@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/intercooler/-/intercooler-1.2.1.tgz#50e9727ef2643ef7d5130c8e58f2af78098aa01f"

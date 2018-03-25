@@ -1,6 +1,8 @@
 from django.http import JsonResponse
 from django.views import View
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
 class APResponseMixin():
     """
@@ -13,7 +15,7 @@ class APResponseMixin():
     def post(self, request, *args, **kwargs):
         pass
 
-@login_required
+@method_decorator(login_required, name='dispatch')
 class Inbox(View):
     def get(self, request):
         return render(request, "core/inbox.html")
