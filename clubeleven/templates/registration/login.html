@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+{% block content %}
+    <section class="section">
+        {% if form.errors %}
+            <p>Your username/email and password didn't match. Please try again.</p>
+        {% endif %}
+
+        {% if next %}
+            {% if user.is_authenticated %}
+                <p>Your account doesn't have access to this page. To proceed, please
+                    log in with an account that has access.</p>
+            {% else %}
+                <p>Please log in to see this page.</p>
+            {% endif %}
+        {% endif %}
+    </section>
+    <section class="section">
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            <div class="field">
+                <label class="label">{{ form.username.label }}</label>
+                <div class="control has-icons-left">
+                    {% render_field form.username class+="input" %}
+                    <span class="icon is-small is-left">
+                        <i class="fa fa-user"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="field" >
+                <label class="label" >{{ form.password.label }}</label>
+                <div class="control has-icons-left" >
+                    {% render_field form.password class+="input" type="password" %}
+                    <span class="icon is-small is-left">
+                        <i class="fa fa-lock" ></i>
+                    </span>
+                </div>
+            </div>
+        </form>
+    </section>
+{% endblock %}
