@@ -6,6 +6,8 @@ name = "pypi"
 [dev-packages]
 
 [packages]
+httpsig = "*"
+django = "*"
 
 [requires]
 python_version = "3.7"
