@@ -8,6 +8,6 @@ name = "pypi"
 [packages]
 httpsig = "*"
 django = "*"
-
-[requires]
-python_version = "3.7"
+django-widget-tweaks = "*"
+"psycopg2" = "*"
+pillow = "*"
