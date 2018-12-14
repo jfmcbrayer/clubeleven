@@ -11,8 +11,8 @@ class BasePost(models.Model):
     image = models.ImageField(null=True, upload_to='uploads/%Y/%m/%d/')
     json = fields.JSONField(encoder = DjangoJSONEncoder,
                             null=True, blank=True)
-    def __str__():
-        return name
+    def __str__(self):
+        return self.name
 
 class BaseActor(models.Model):
     display_name = models.CharField(max_length=80)
@@ -21,11 +21,11 @@ class BaseActor(models.Model):
     outbox_url = models.URLField(max_length=2048)
     local_user = models.ForeignKey(settings.AUTH_USER_MODEL, models.CASCADE, null=True)
     json = fields.JSONField(encoder = DjangoJSONEncoder, null=True, blank=True)
-    followers = models.ManyToManyField('self', related_name='followers')
-    follows = models.ManyToManyField('self',  related_name='follows')
+    followers = models.ManyToManyField('self', related_name='followers', blank=True)
+    follows = models.ManyToManyField('self',  related_name='follows', blank=True)
 
-    def __str__():
-        return display_name
+    def __str__(self):
+        return self.display_name
 
 class Persona(BaseActor):
     default_visibility = models.CharField(max_length=8,

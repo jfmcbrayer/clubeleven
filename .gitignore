@@ -109,3 +109,4 @@ lib64
 pip-selfcheck.json
 node_modules/
 Pipfile.lock
+uploads
