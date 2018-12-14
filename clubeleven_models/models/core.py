@@ -2,6 +2,8 @@ from django.db import models
 from django.conf import settings
 from django.contrib.postgres import fields
 from django.core.serializers.json import DjangoJSONEncoder
+from mimetypes import guess_type
+import json
 
 class BasePost(models.Model):
     name = models.CharField(max_length=140, null=True)
@@ -23,6 +25,10 @@ class BaseActor(models.Model):
     json = fields.JSONField(encoder = DjangoJSONEncoder, null=True, blank=True)
     followers = models.ManyToManyField('self', related_name='followers', blank=True)
     follows = models.ManyToManyField('self',  related_name='follows', blank=True)
+    public_key = models.TextField(blank=True, null=True)
+    private_key = models.TextField(blank=True, null=True)
+    summary = models.TextField(blank=True, null=True)
+
 
     def __str__(self):
         return self.display_name
@@ -36,6 +42,28 @@ class Persona(BaseActor):
     is_searchable = models.BooleanField(default=True)
     avatar = models.ImageField(null=True, upload_to='uploads/%Y/%m/%d/')
     shortname = models.SlugField()
+
+    def to_json(self):
+        return json.dumps( {
+            '@context': ["https://www.w3.org/ns/activitystreams",
+                         "https://w3id.org/security/v1"],
+            "id": self.profile_url,
+            "type": "Person",
+            "preferredUsername": self.shortname,
+            "inbox": self.inbox_url,
+            "outbox": self.outbox_url,
+            "publicKey": {
+                "id": self.profile_url + "#main-key",
+                "owner": self.profile_url,
+                "publicKeyPem": self.public_key
+            },
+            "summary": self.summary,
+            "icon": {
+                "type": "Image",
+                "mediaType": guess_type(self.avatar.name),
+                "url": self.profile_url + "/icon"
+            }
+        })
 
 class Link(BasePost):
     href = models.URLField(max_length=2048)

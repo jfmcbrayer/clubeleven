@@ -20,5 +20,9 @@ from clubeleven import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('.well-known/webfinger', views.webfinger, name="webfinger"),
+    path('u/<username>', views.profile, name="profile"),
+    path('u/<username>/icon', views.icon, name="avatar"),
     path('', views.Inbox.as_view(), name='inbox')
+
 ]
