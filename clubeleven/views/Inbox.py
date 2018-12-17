@@ -11,6 +11,8 @@ from clubeleven_models.models.core import InspectableMessage
 import sys
 import json
 import requests
+import hashlib
+import base64
 
 def inbox(request, username):
     if request.method == 'GET':
@@ -57,16 +59,20 @@ def verify_signature(request, key_id, headers, signature):
     pubkey = req.json()["publicKey"]["publicKeyPem"]
 
     #verify
+    digest = request.META.get("HTTP_DIGEST", None)
     request_headers =  {
         "signature": signature,
         "host": request.get_host(),
         "date": request.META['HTTP_DATE'],
-        "digest": request.META.get("HTTP_DIGEST", None),
         "content-type": request.META["CONTENT_TYPE"]
     }
-    # TODO: regenerate and verify digest header
+    if digest:
+        new_digest = hashlib.sha256()
+        new_digest.update(request.body)
+        new_digest = base64.encodestring(new_digest.digest()).strip()
+        request_headers["digest"] = (b"SHA-256=" + new_digest).decode("UTF-8")
+
     # TODO: check date stamp to avoid replay attacks
-    # TODO: digest only required if present.
     # TODO: check attribution
 
     hv = HeaderVerifier(request_headers, pubkey, headers, request.method,
