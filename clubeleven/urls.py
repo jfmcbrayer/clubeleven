@@ -23,6 +23,7 @@ urlpatterns = [
     path('.well-known/webfinger', views.webfinger, name="webfinger"),
     path('u/<username>', views.profile, name="profile"),
     path('u/<username>/icon', views.icon, name="avatar"),
-    path('', views.Inbox.as_view(), name='inbox')
+    path('u/<username>/inbox', views.Inbox, name="inbox"),
+    path('', views.Inbox)
 
 ]

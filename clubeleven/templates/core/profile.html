@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}Profile page for {{ user.shortname }} {% endblock %}
+
+{% block content %}
+    <img src="{{ user.profile_url }}/icon" alt="avatar">
+    <p> {{ user.display_name }}</p>
+    <p> {{ user.summary }}
+
+    <p>This space intentionally left blank.</p>
+{% endblock %}
