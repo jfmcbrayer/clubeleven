@@ -94,3 +94,16 @@ class Reaction(Comment):
     # 9 codepoints.
     emojo = models.CharField(max_length=16, null=True)
     shortcode = models.CharField(max_length=16, null=True)
+
+class InspectableMessage(models.Model):
+    """A simple class for storing a message received from an AP server so I can
+    inspect it and deal with it manually"""
+    signature = models.CharField(max_length=4096, null=True, blank=True)
+    signature_checked = models.BooleanField(default=False)
+    signature_check_passed = models.BooleanField(null=True, blank=True)
+    json = models.TextField(null=True, blank=True)
+    host = models.CharField(max_length=2048, null=True, blank=True)
+    date = models.CharField(max_length=80, null=True, blank=True)
+    digest = models.TextField(null=True, blank=True)
+    content_type = models.CharField(max_length=1024, null=True, blank=True)
+    request_target = models.CharField(max_length=4096, null=True, blank=True)
