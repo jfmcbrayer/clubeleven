@@ -21,6 +21,11 @@ class BaseActor(models.Model):
     profile_url = models.URLField(max_length=2048)
     inbox_url = models.URLField(max_length=2048)
     outbox_url = models.URLField(max_length=2048)
+    icon_url = models.URLField(max_length=2048, null=True, blank=True)
+    image_url = models.URLField(max_length=2048, null=True, blank=True)
+    icon = models.ImageField(null=True, upload_to='uploads/%Y/%m/%d/')
+    image = models.ImageField(null=True, upload_to='uploads/%Y/%m/%d/')
+    type = models.CharField(max_length=80, null=True, blank=True)
     local_user = models.ForeignKey(settings.AUTH_USER_MODEL, models.CASCADE, null=True)
     json = fields.JSONField(encoder = DjangoJSONEncoder, null=True, blank=True)
     followers = models.ManyToManyField('self', related_name='followers', blank=True)
@@ -40,7 +45,6 @@ class Persona(BaseActor):
                                                    ("MUT", "Friends only"),
                                                    ("LIST", "Listed people only"),))
     is_searchable = models.BooleanField(default=True)
-    avatar = models.ImageField(null=True, upload_to='uploads/%Y/%m/%d/')
     shortname = models.SlugField()
 
     def to_json(self):
@@ -60,7 +64,7 @@ class Persona(BaseActor):
             "summary": self.summary,
             "icon": {
                 "type": "Image",
-                "mediaType": guess_type(self.avatar.name),
+                "mediaType": guess_type(self.icon.name),
                 "url": self.profile_url + "/icon"
             }
         })

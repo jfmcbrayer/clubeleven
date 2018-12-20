@@ -1,5 +1,5 @@
-import requests
-from brutaldon_models.models import BaseActor, Persona
+import requests, json
+from clubeleven_models.models import BaseActor, Persona
  from urllib.parse import urlparse
  from webfinger import finger
 
@@ -23,11 +23,22 @@ def resolve_actor(actor):
         return BaseActor.objects.get(profile_url = profile)
     except BaseActor.DoesNotExist:
         #     Else, fetch it and create a BaseActor object.
-        actor = requests.get(profile, headers={"Accept": "application/ld+json"}).json()
+        result = requests.get(profile, headers={"Accept": "application/ld+json"}).json()
+        actor = result.json()
 
         new_actor = BaseActor()
         new_actor.inbox = actor['inbox']
         new_actor.outbox = actor['outbox']
+        new_actor.public_key = actor['publicKey']['publicKeyPem']
+        new_actor.profile_url = actor['url']
+        new_actor.display_name = actor['name']
+        new_actor.shortname = actor['preferredUsername']
+        new_actor.summary = actor['summary']
+        new_actor.type = actor['type']
+        new_actor.json = result.text
+        # Get their icon and image and store locally
+        # new_actor.icon = actor['icon']
+        # new_actor.image = actor['']
         new_actor.save()
         return new_actor
 

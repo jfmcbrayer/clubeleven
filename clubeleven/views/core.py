@@ -28,7 +28,7 @@ def icon(request, username):
         user = Persona.objects.get(shortname = username)
     except Persona.DoesNotExist:
         return Http404()
-    type = guess_type(user.avatar.name)
+    type = guess_type(user.icon.name)
     if not type:
         return Http404()
-    return HttpResponse(user.avatar.read(), content_type=type[0])
+    return HttpResponse(user.icon.read(), content_type=type[0])

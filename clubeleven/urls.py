@@ -22,7 +22,7 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('.well-known/webfinger', views.webfinger, name="webfinger"),
     path('u/<username>', views.profile, name="profile"),
-    path('u/<username>/icon', views.icon, name="avatar"),
+    path('u/<username>/icon', views.icon, name="icon"),
     path('u/<username>/inbox', views.Inbox, name="inbox"),
     path('', views.Inbox)
 
