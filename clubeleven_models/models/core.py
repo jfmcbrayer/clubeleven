@@ -18,14 +18,14 @@ class BasePost(models.Model):
 
 class BaseActor(models.Model):
     display_name = models.CharField(max_length=80)
-    profile_url = models.URLField(max_length=2048)
+    profile_url = models.URLField(max_length=2048, unique=True)
     inbox_url = models.URLField(max_length=2048)
     outbox_url = models.URLField(max_length=2048)
     icon_url = models.URLField(max_length=2048, null=True, blank=True)
     image_url = models.URLField(max_length=2048, null=True, blank=True)
     icon = models.ImageField(null=True, upload_to='uploads/%Y/%m/%d/')
     image = models.ImageField(null=True, upload_to='uploads/%Y/%m/%d/')
-    type = models.CharField(max_length=80, null=True, blank=True)
+    ap_type = models.CharField(max_length=80, null=True, blank=True)
     local_user = models.ForeignKey(settings.AUTH_USER_MODEL, models.CASCADE, null=True)
     json = fields.JSONField(encoder = DjangoJSONEncoder, null=True, blank=True)
     followers = models.ManyToManyField('self', related_name='followers', blank=True)

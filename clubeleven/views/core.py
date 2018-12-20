@@ -27,8 +27,12 @@ def icon(request, username):
     try:
         user = Persona.objects.get(shortname = username)
     except Persona.DoesNotExist:
-        return Http404()
+        raise Http404()
     type = guess_type(user.icon.name)
     if not type:
-        return Http404()
+        raise Http404()
     return HttpResponse(user.icon.read(), content_type=type[0])
+
+def message(request, uuid):
+    "Return a message by UUID. This is a stub"
+    raise Http404()

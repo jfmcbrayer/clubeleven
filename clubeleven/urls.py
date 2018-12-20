@@ -24,6 +24,7 @@ urlpatterns = [
     path('u/<username>', views.profile, name="profile"),
     path('u/<username>/icon', views.icon, name="icon"),
     path('u/<username>/inbox', views.Inbox, name="inbox"),
+    path('m/<uuid>', views.message, name="message"),
     path('', views.Inbox)
 
 ]
