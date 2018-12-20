@@ -1,13 +1,13 @@
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.conf import settings as django_settings
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.views.decorators.cache import never_cache, cache_page
 from django.urls import reverse
 from django.views import View
 from httpsig import HeaderVerifier
 from django.utils import timezone
-from clubeleven_models.models.core import InspectableMessage
+from clubeleven_models.models import InspectableMessage, Persona
 import sys
 import json
 import requests
@@ -15,6 +15,9 @@ import hashlib
 import base64
 
 def inbox(request, username):
+    user = get_object_or_404(Persona, shortname=username)
+    if not user.local_user:
+        raise Http404()
     if request.method == 'GET':
         if request.META['HTTP_ACCEPT'].find('json') != -1:
             return get_json(request, username)
